@@ -3,14 +3,12 @@
 News Crawler is the offline phase of the News Extraction and Summarization project
 
 ## Tech
------
 News Crawler uses a number of open source projects to work properly:
 
 * [Crawler4j](https://github.com/yasserg/crawler4j) - an open source web crawler for Java
 * [JSoup](https://jsoup.org/) - a Java library for working with real-world HTML
 
 ## Installation
------
 News Crawler requires the following JARs to run
 * crawler4j-4.1-jar-with-dependencies.jar
 * slf4j-simple-1.6.1.jar
