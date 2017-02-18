@@ -1,5 +1,10 @@
-
-
+/* 	News Extraction and Summarization
+		Final Year Project
+		Authors:
+			106113001 Abha Suman
+			106113032 Hariprasad KR
+			106113043 Kailash Karthik
+*/
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,9 +14,11 @@ import java.sql.Statement;
 
 public class DbConnector {
 
+	//Global JDBC parameters
 	static Connection c;
 	static Statement s;
 	
+	//Constructor to establish Database connection
 	public DbConnector() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -22,6 +29,17 @@ public class DbConnector {
 		}
 	}
 	
+	//Function to empty the articles table before Crawling commences
+	public void truncate() {
+		try {
+			s.executeUpdate("TRUNCATE Articles");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	//Function to insert a new article given parameters
 	public int addArticle(String title, String url, int newspaper, int category) {
 		int aId = 0;
 		try {
@@ -40,7 +58,6 @@ public class DbConnector {
 	                throw new SQLException("Creating user failed, no ID obtained.");
 	            }
 	        }
-
 		} catch (SQLException e) {			
 			e.printStackTrace();
 		}

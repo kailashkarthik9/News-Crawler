@@ -1,3 +1,10 @@
+/* 	News Extraction and Summarization
+		Final Year Project
+		Authors:
+			106113001 Abha Suman
+			106113032 Hariprasad KR
+			106113043 Kailash Karthik
+*/
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,9 +21,13 @@ import edu.uci.ics.crawler4j.url.WebURL;
 
 public class BasicCrawler extends WebCrawler {
 
+	//File Extensions to ignore
     private static final Pattern FILE_EXTENSIONS= Pattern.compile(".*\\.(bmp|gif|jpg|png|pdf|doc|docx|ppt|mp3|wav|)$");
+    //Global JDBC parameters
     static Connection c;
 	static Statement s;
+	
+	//Constructor to establish database connection
 	public BasicCrawler() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -26,9 +37,8 @@ public class BasicCrawler extends WebCrawler {
 			e.printStackTrace();
 		}
 	}
-    /*
-      	Function to determine whether the uURL should be crawled or not depending on crawling logic
-     */
+    
+	//Function to determine whether the URL should be crawled or not depending on crawling logic
     @Override
     public boolean shouldVisit(Page referringPage, WebURL url) {
         String href = url.getURL().toLowerCase();
@@ -36,7 +46,6 @@ public class BasicCrawler extends WebCrawler {
         if (FILE_EXTENSIONS.matcher(href).matches()) {
             return false;
         }
-
         // Only accept the url if it is in the permitted news domain and is under the allowed categories
         return (href.startsWith("http://www.thehindu.com/sport/") ||
         		href.startsWith("http://www.thehindu.com/entertainment/") ||
@@ -52,9 +61,7 @@ public class BasicCrawler extends WebCrawler {
         		href.endsWith(".cms"));
     }
 
-    /*
-      	Retrieve the details of the crawled web pages
-     */
+    //Retrieve the details of the crawled web pages
     @Override
     public void visit(Page page) {
         String url = page.getWebURL().getURL();      
@@ -63,11 +70,13 @@ public class BasicCrawler extends WebCrawler {
         String title = new String();
         int category = 0;
         int newspaper = 0;
+        //Fetch the html content and the title of the page
         if (page.getParseData() instanceof HtmlParseData) {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             html = htmlParseData.getHtml();
             title = htmlParseData.getTitle();        
         }
+        //Set category and newspaper parameters according to fetched URL
         if(url.contains("sport"))
         	category=2;
         else if(url.contains("entertainment"))
@@ -80,6 +89,7 @@ public class BasicCrawler extends WebCrawler {
         	newspaper=2;
         else if(url.contains("timesofindia"))
         	newspaper=3; 
+        //If it is a valid article, add it to the database and create the files in the repository
         if(category!=0) {
         	aId = new DbConnector().addArticle(title, url, newspaper, category);
         	String[] cleanedPage = NoiseRemover.cleanPage(html);
@@ -103,7 +113,6 @@ public class BasicCrawler extends WebCrawler {
 			} catch (IOException e) {				
 				e.printStackTrace();
 			}
-        	
         }
     }
 }
