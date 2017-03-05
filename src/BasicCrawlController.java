@@ -24,7 +24,7 @@ public class BasicCrawlController {
         config.setCrawlStorageFolder(crawlStorageFolder); 
         config.setPolitenessDelay(1000);
         config.setMaxDepthOfCrawling(2);
-        config.setMaxPagesToFetch(1000);
+        config.setMaxPagesToFetch(100);
         config.setIncludeBinaryContentInCrawling(false);
         config.setResumableCrawling(false);
         //Instantiate the controller for this crawl.

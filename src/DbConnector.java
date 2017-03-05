@@ -32,6 +32,7 @@ public class DbConnector {
 	//Function to empty the articles table before Crawling commences
 	public void truncate() {
 		try {
+			s.executeUpdate("TRUNCATE tags");
 			s.executeUpdate("TRUNCATE Articles");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -42,6 +43,11 @@ public class DbConnector {
 	//Function to insert a new article given parameters
 	public int addArticle(String title, String url, int newspaper, int category) {
 		int aId = 0;
+		if(title.contains("|"))
+			title = title.substring(0, title.indexOf("|"));
+		title = title.replaceAll(" - The Hindu", "");
+		title = title.replaceAll(" - Times of India", "");
+		title = title.replaceAll(" - Deccan Chronicle", "");
 		try {
 			String str = "INSERT into Articles(title,url,nId,cId) values(?, ?, ?, ?)";
 			PreparedStatement query = c.prepareStatement(str,Statement.RETURN_GENERATED_KEYS);
@@ -63,4 +69,18 @@ public class DbConnector {
 		}
 		return aId;
 	}
+	
+	//Function to insert a new article given parameters
+		public int addTags(String tags, int aId) {
+			try {
+				String str = "INSERT into tags(aId, tagText) values(?, ?)";
+				PreparedStatement query = c.prepareStatement(str,Statement.RETURN_GENERATED_KEYS);
+				query.setInt(1, aId);
+				query.setString(2, tags);
+				query.executeUpdate();
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			}
+			return aId;
+		}
 }

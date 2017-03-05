@@ -101,13 +101,13 @@ public class BasicCrawler extends WebCrawler {
         		fileCreated = fileText.createNewFile();
         		if(fileCreated) {
         			PrintWriter writer = new PrintWriter(fileText, "UTF-8");
-        		    writer.println(cleanedPage[0]);
+        		    writer.println(cleanedPage[0].trim());
         		    writer.close();
             	}
         		fileCreated = fileHtml.createNewFile();
         		if(fileCreated) {
         			PrintWriter writer = new PrintWriter(fileHtml, "UTF-8");
-        		    writer.println(html);
+        		    writer.println(html.trim());
         		    writer.close();
             	}
 			} catch (IOException e) {				
