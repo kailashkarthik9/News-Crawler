@@ -1,4 +1,4 @@
-/* 	News Extraction and Summarization
+/* 	Contextual Query-Driven News Summarization
 		Final Year Project
 		Authors:
 			106113001 Abha Suman
@@ -23,8 +23,8 @@ public class BasicCrawlController {
         CrawlConfig config = new CrawlConfig();
         config.setCrawlStorageFolder(crawlStorageFolder); 
         config.setPolitenessDelay(1000);
-        config.setMaxDepthOfCrawling(2);
-        config.setMaxPagesToFetch(100);
+        config.setMaxDepthOfCrawling(4);
+        config.setMaxPagesToFetch(1600);
         config.setIncludeBinaryContentInCrawling(false);
         config.setResumableCrawling(false);
         //Instantiate the controller for this crawl.
@@ -37,7 +37,7 @@ public class BasicCrawlController {
         controller.addSeed("http://www.thehindu.com/");
         controller.addSeed("http://www.deccanchronicle.com/");
         controller.addSeed("http://timesofindia.indiatimes.com/");
-        //Start the crawl. This is a blocking operation, meaning that your code
+        //Start the crawl. This is a blocking operation
         Files.walk(Paths.get("C:\\Users\\User\\Desktop\\8th Semester\\Project\\NewsHtmlFiles\\"))
         				.filter(Files::isRegularFile)
         				.map(Path::toFile)

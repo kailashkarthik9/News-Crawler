@@ -1,4 +1,4 @@
-/* 	News Extraction and Summarization
+/* 	Contextual Query-Driven News Summarization
 		Final Year Project
 		Authors:
 			106113001 Abha Suman
@@ -71,16 +71,17 @@ public class DbConnector {
 	}
 	
 	//Function to insert a new article given parameters
-		public int addTags(String tags, int aId) {
-			try {
-				String str = "INSERT into tags(aId, tagText) values(?, ?)";
-				PreparedStatement query = c.prepareStatement(str,Statement.RETURN_GENERATED_KEYS);
-				query.setInt(1, aId);
-				query.setString(2, tags);
-				query.executeUpdate();
-			} catch (SQLException e) {			
-				e.printStackTrace();
-			}
-			return aId;
+	public int addTags(String tags, int aId) {
+		try {
+			String str = "INSERT into tags(tId, aId, tagText) values(?, ?, ?)";
+			PreparedStatement query = c.prepareStatement(str,Statement.RETURN_GENERATED_KEYS);
+			query.setInt(1, aId);
+			query.setInt(2, aId);
+			query.setString(3, tags);
+			query.executeUpdate();
+		} catch (SQLException e) {			
+			e.printStackTrace();
 		}
+		return aId;
+	}
 }

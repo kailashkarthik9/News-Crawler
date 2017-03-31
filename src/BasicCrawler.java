@@ -1,4 +1,4 @@
-/* 	News Extraction and Summarization
+/* 	Contextual Query-Driven News Summarization
 		Final Year Project
 		Authors:
 			106113001 Abha Suman
