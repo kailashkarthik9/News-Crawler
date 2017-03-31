@@ -7,6 +7,7 @@ News Crawler uses a number of open source projects to work properly:
 
 * [Crawler4j](https://github.com/yasserg/crawler4j) - an open source web crawler for Java
 * [JSoup](https://jsoup.org/) - a Java library for working with real-world HTML
+* [Stanford CoreNLP](http://stanfordnlp.github.io/CoreNLP/) - a set of natural language analysis tools
 
 ## Installation
 News Crawler requires the following JARs to run
@@ -14,6 +15,7 @@ News Crawler requires the following JARs to run
 * slf4j-simple-1.6.1.jar
 * jsoup-1.10.2.jar
 * mysql-connector-java-5.1.40-bin.jar
+* All JARs in Stanford CoreNLP Suite
 
 ## Instructions
 
@@ -24,6 +26,7 @@ News Crawler requires the following JARs to run
 - Create a database and relations according to the schema diagram
 - Modify the default file locations for storing temporary crawl data and file repository
 - Run the CrawlController as a java application
+- Run the AnaphoraAndTagging as a java application
 ```
 
 ### Authors
